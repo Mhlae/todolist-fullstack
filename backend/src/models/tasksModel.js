@@ -1,17 +1,19 @@
 const connection = require("./connection");
 
 const getAll = async () => {
-    const [tasks] = await connection.execute("SELECT * FROM tasks");
+    const [tasks] = await connection.execute(
+        "SELECT id, tittle AS title, status, created_at FROM tasks"
+    );
     return tasks;
 };
 
 const createTask = async (task) => {
     const { title } = task;
-    const dataUTC  = new Date(Date.now()).toUTCString();
+    const createdAt = new Date().toISOString().slice(0, 19).replace("T", " ");
 
     const query = "INSERT INTO tasks (tittle, status, created_at) VALUES (?, ?, ?)";
 
-    const [createdTask] = await connection.execute(query, [title, "pendente", dataUTC]);
+    const [createdTask] = await connection.execute(query, [title, "pendente", createdAt]);
     return {insertId: createdTask.insertId};
 };
 

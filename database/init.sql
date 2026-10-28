@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS todolist;
+
+USE todolist;
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tittle VARCHAR(255) NOT NULL,
+    status VARCHAR(32) NOT NULL DEFAULT 'pendente',
+    created_at DATETIME NOT NULL
+);
